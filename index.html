@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shikhar Singh | Graphic Designer & Photographer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        @layer reset, base, components, utilities;
+
+        :root {
+            --color-black: #0a0a0a;
+            --color-dark-brown: #2C2419;
+            --color-warm-brown: #6B4423;
+            --color-brown: #8B6F4E;
+            --color-beige: #D4C4B0;
+            --color-cream: #E8E0D5;
+            --color-soft-cream: #F5F0E8;
+            --color-white: #FAF7F2;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: 0.3s var(--ease-smooth);
+            --transition-medium: 0.6s var(--ease-out);
+        }
+
+        @layer reset {
+            *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+            html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+            img, video { max-width: 100%; display: block; }
+            button, a { cursor: pointer; text-decoration: none; color: inherit; }
+            ul, ol { list-style: none; }
+        }
+
+        @layer base {
+            body {
+                font-family: var(--font-sans);
+                background: var(--color-white);
+                color: var(--color-black);
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
+
+            ::selection {
+                background: var(--color-warm-brown);
+                color: var(--color-white);
+            }
+
+            ::-webkit-scrollbar { width: 8px; }
+            ::-webkit-scrollbar-track { background: var(--color-soft-cream); }
+            ::-webkit-scrollbar-thumb { background: var(--color-brown); border-radius: 4px; }
+
+            @media (prefers-reduced-motion: reduce) {
+                *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            }
+        }
+
+        @layer components {
+            /* Custom Cursor */
+            .cursor {
+                width: 20px; height: 20px;
+                border: 1.5px solid var(--color-warm-brown);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s;
+                mix-blend-mode: difference;
+            }
+            .cursor.hover {
+                width: 50px; height: 50px;
+                background: rgba(107, 68, 35, 0.15);
+                border-color: transparent;
+            }
+
+            /* Navigation */
+            nav {
+                position: fixed;
+                top: 0; left: 0; right: 0;
+                padding: 1.5rem 5%;
+                display: flex; justify-content: space-between; align-items: center;
+                z-index: 1000;
+                background: rgba(250, 247, 242, 0.85);
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid rgba(139, 111, 78, 0.1);
+                transition: var(--transition-fast);
+            }
+            nav.scrolled { padding: 1rem 5%; box-shadow: 0 4px 20px rgba(10,10,10,0.05); }
+            .logo {
+                font-family: var(--font-serif);
+                font-size: clamp(1.2rem, 2vw, 1.6rem);
+                font-weight: 600;
+                letter-spacing: -0.5px;
+            }
+            .nav-links { display: flex; gap: 2.5rem; }
+            .nav-links a {
+                font-size: 0.85rem; font-weight: 500;
+                position: relative; opacity: 0.7;
+                transition: var(--transition-fast);
+            }
+            .nav-links a.active { opacity: 1; color: var(--color-warm-brown); }
+            .nav-links a::after {
+                content: ''; position: absolute; bottom: -4px; left: 0;
+                width: 0; height: 1.5px; background: var(--color-warm-brown);
+                transition: width var(--transition-fast);
+            }
+            .nav-links a:hover { opacity: 1; }
+            .nav-links a:hover::after { width: 100%; }
+            .menu-btn { display: none; background: none; border: none; }
+            .menu-btn span { display: block; width: 24px; height: 2px; background: var(--color-black); margin: 5px 0; transition: var(--transition-fast); }
+
+            /* Hero */
+            .hero {
+                min-height: 100vh;
+                display: flex; align-items: center; justify-content: center;
+                position: relative; padding: 0 5%;
+                overflow: hidden;
+                background: radial-gradient(circle at 30% 40%, var(--color-soft-cream), var(--color-cream));
+            }
+            .hero-bg {
+                position: absolute; inset: 0; z-index: -1;
+                background: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=1600&auto=format&fit=crop') center/cover no-repeat;
+                opacity: 0.12; filter: grayscale(100%);
+                transform: scale(1.1);
+            }
+            .hero-content { max-width: 1000px; text-align: center; position: relative; }
+            .hero-subtitle {
+                font-family: var(--font-serif); font-style: italic;
+                font-size: clamp(1rem, 2vw, 1.3rem);
+                color: var(--color-warm-brown); margin-bottom: 1rem;
+            }
+            .hero h1 {
+                font-family: var(--font-serif);
+                font-size: clamp(3.5rem, 10vw, 8rem);
+                font-weight: 400; line-height: 1.5;
+                letter-spacing: -3px; margin-bottom: 1.5rem;
+                background: linear-gradient(135deg, var(--color-black) 0%, var(--color-dark-brown) 100%);
+                -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            }
+            .hero-tagline {
+                font-size: clamp(1rem, 1.5vw, 1.25rem);
+                color: var(--color-brown); font-weight: 300;
+                max-width: 650px; margin: 0 auto 2rem;
+            }
+            .scroll-indicator {
+                position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+                display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+                color: var(--color-brown); font-size: 0.75rem; letter-spacing: 2px;
+                animation: bounce 2s infinite;
+            }
+            .scroll-indicator::before { content: ''; width: 1px; height: 60px; background: var(--color-brown); }
+
+            /* Sections */
+            section { padding: 7rem 5%; }
+            .section-header { margin-bottom: 4rem; }
+            .section-label {
+                font-family: var(--font-serif); font-size: 0.85rem;
+                color: var(--color-warm-brown); text-transform: uppercase;
+                letter-spacing: 3px; margin-bottom: 0.75rem; display: block;
+            }
+            .section-title {
+                font-family: var(--font-serif);
+                font-size: clamp(2rem, 4vw, 3.2rem);
+                font-weight: 400; line-height: 1.15; color: var(--color-black);
+            }
+            .reveal { opacity: 0; transform: translateY(40px); transition: var(--transition-medium); }
+            .reveal.visible { opacity: 1; transform: translateY(0); }
+
+            /* About */
+            .about { background: var(--color-soft-cream); }
+            .about-content { max-width: 750px; font-size: clamp(1rem, 1.3vw, 1.15rem); line-height: 1.8; color: var(--color-dark-brown); }
+            .about-content p { margin-bottom: 1.5rem; }
+            .highlight { color: var(--color-warm-brown); font-weight: 500; }
+
+            /* Projects */
+            .projects-grid {
+                display: grid; gap: 3rem;
+                grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            }
+            .project-card {
+                background: var(--color-white); border: 1px solid var(--color-cream);
+                overflow: hidden; border-radius: 12px;
+                transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+                transform-style: preserve-3d; perspective: 1000px;
+            }
+            .project-card:hover { box-shadow: 0 20px 50px rgba(44,36,25,0.15); }
+            .project-image-wrap { overflow: hidden; aspect-ratio: 16/10; }
+            .project-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
+            .project-card:hover .project-image { transform: scale(1.08); }
+            .project-content { padding: 2rem; }
+            .project-role { font-size: 0.8rem; color: var(--color-warm-brown); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; }
+            .project-title { font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 1rem; }
+            .project-desc { color: var(--color-brown); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.25rem; }
+            .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+            .tag {
+                padding: 0.35rem 0.85rem; background: var(--color-soft-cream);
+                font-size: 0.75rem; border-radius: 20px; color: var(--color-dark-brown);
+                border: 1px solid transparent; transition: var(--transition-fast);
+            }
+            .project-card:hover .tag { border-color: var(--color-cream); }
+
+            /* Photography */
+            .photography { background: var(--color-dark-brown); color: var(--color-white); }
+            .photography .section-label { color: var(--color-beige); }
+            .photography .section-title { color: var(--color-white); }
+            .photo-grid {
+                display: grid; gap: 1.5rem;
+                grid-template-columns: repeat(1, 1fr);
+            }
+            .photo-item {
+                position: relative; overflow: hidden; border-radius: 10px;
+                aspect-ratio: 9/4; cursor: pointer;
+                transform: translateZ(0);
+            }
+            .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease-out), filter 0.5s; filter: grayscale(40%); }
+            .photo-item:hover img { transform: scale(1.1); filter: grayscale(0%); }
+            .photo-overlay {
+                position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.85), transparent 50%);
+                opacity: 0; transition: var(--transition-fast);
+                display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem;
+            }
+            .photo-item:hover .photo-overlay { opacity: 1; }
+            .photo-title { font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 0.25rem; }
+            .photo-sub { font-size: 0.85rem; color: var(--color-beige); }
+
+            /* Skills */
+            .skills-grid {
+                display: grid; gap: 2rem;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            .skill-card {
+                padding: 2.5rem; background: var(--color-white); border: 1px solid var(--color-cream);
+                border-radius: 10px; transition: var(--transition-fast);
+            }
+            .skill-card:hover { border-color: var(--color-brown); transform: translateY(-5px); }
+            .skill-card h3 { font-family: var(--font-serif); font-size: 1.4rem; margin-bottom: 1.5rem; }
+            .skill-list li {
+                padding: 0.6rem 0; border-bottom: 1px solid var(--color-cream);
+                color: var(--color-brown); display: flex; align-items: center; gap: 0.75rem;
+            }
+            .skill-list li::before { content: '—'; color: var(--color-warm-brown); }
+            .skill-list li:last-child { border-bottom: none; }
+
+            /* Contact */
+            .contact { text-align: center; min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: var(--color-white); }
+            .contact-text { font-size: clamp(1rem, 1.2vw, 1.15rem); color: var(--color-brown); max-width: 550px; margin-bottom: 3rem; line-height: 1.8; }
+            .contact-links { display: flex; gap: 2.5rem; flex-wrap: wrap; justify-content: center; }
+            .magnetic-btn {
+                position: relative; padding: 0.75rem 2rem;
+                border: 1px solid var(--color-brown); border-radius: 30px;
+                font-size: 0.9rem; font-weight: 500; transition: var(--transition-fast);
+                display: inline-flex; align-items: center; gap: 0.5rem;
+            }
+            .magnetic-btn:hover { background: var(--color-warm-brown); color: var(--color-white); border-color: var(--color-warm-brown); }
+
+            /* Footer */
+            footer {
+                background: var(--color-black); color: var(--color-beige);
+                text-align: center; padding: 3rem 5%; font-size: 0.85rem;
+            }
+
+            /* Lightbox */
+            .lightbox {
+                position: fixed; inset: 0; background: rgba(10,10,10,0.95);
+                z-index: 2000; display: flex; align-items: center; justify-content: center;
+                opacity: 0; pointer-events: none; transition: var(--transition-medium);
+            }
+            .lightbox.active { opacity: 1; pointer-events: all; }
+            .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); transform: scale(0.9); transition: var(--transition-medium); }
+            .lightbox.active img { transform: scale(1); }
+            .lightbox-close {
+                position: absolute; top: 2rem; right: 2rem; background: none; border: none;
+                color: var(--color-white); font-size: 2rem; cursor: pointer;
+            }
+
+            /* Animations */
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+                40% { transform: translateX(-50%) translateY(-8px); }
+                60% { transform: translateX(-50%) translateY(-4px); }
+            }
+            @keyframes grain {
+                0%, 100% { transform: translate(0,0); }
+                10% { transform: translate(-5%,-10%); }
+                20% { transform: translate(-15%,5%); }
+                30% { transform: translate(7%,-25%); }
+                40% { transform: translate(-5%,25%); }
+                50% { transform: translate(-15%,10%); }
+                60% { transform: translate(15%,0%); }
+                70% { transform: translate(0%,15%); }
+                80% { transform: translate(3%,35%); }
+                90% { transform: translate(-10%,10%); }
+            }
+            .grain-overlay {
+                position: fixed; inset: -20px; pointer-events: none; z-index: 9998;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+                opacity: 0.04; animation: grain 8s steps(10) infinite;
+            }
+
+            /* Responsive */
+            @media (max-width: 968px) {
+                .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--color-soft-cream); flex-direction: column; padding: 2rem; gap: 1.5rem; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+                .nav-links.open { display: flex; }
+                .menu-btn { display: block; }
+                .photo-grid { grid-template-columns: 1fr; }
+                .cursor { display: none; }
+            }
+            @media (max-width: 640px) {
+                section { padding: 5rem 5%; }
+                .hero h1 { letter-spacing: -1.5px; }
+                .projects-grid { grid-template-columns: 1fr; }
+            }
+        }
+
+        @layer utilities {
+            .text-center { text-align: center; }
+            .mt-4 { margin-top: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="grain-overlay"></div>
+
+    <nav id="navbar">
+        <a href="#" class="logo magnetic" data-text="Shikhar Singh">Shikhar Singh</a>
+        <button class="menu-btn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#photography" class="nav-link">Photography</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-bg" id="hero-bg"></div>
+            <div class="hero-content">
+                <p class="hero-subtitle reveal">Welcome to my portfolio</p>
+                <h1 class="reveal" style="transition-delay: 0.1s">Shikhar Singh</h1>
+                <p class="hero-tagline reveal" style="transition-delay: 0.2s">Crafting visual stories through design and photography</p>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="section-header reveal">
+                <span class="section-label">About Me</span>
+                <h2 class="section-title">Visual storyteller &<br>creative designer</h2>
+            </div>
+            <div class="about-content reveal">
+                <p>I'm a passionate <span class="highlight">Graphic Designer and Photographer</span> with a deep love for creating compelling visual narratives. With extensive experience in <span class="highlight">branding, social media design, and product photography</span>, I specialize in transforming abstract ideas into visually stunning realities.</p>
+                <p>My approach centers on <span class="highlight">visual storytelling and aesthetics</span>, ensuring that every project not only looks beautiful but communicates effectively. Whether crafting a brand identity from scratch or capturing the perfect product shot, I bring dedication, precision, and a refined eye for detail to every endeavor.</p>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="section-header reveal">
+                <span class="section-label">Selected Work</span>
+                <h2 class="section-title">Featured Projects</h2>
+            </div>
+            <div class="projects-grid">
+                <a href="Mommy'sMade.html" class="project-card tilt reveal" style="transition-delay: 0.1s">
+                    <div class="project-image-wrap">
+                        <img src="mommysmade.png" alt="Mommy'sMade Bakery" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <p class="project-role">Graphic Designer & Photographer</p>
+                        <h3 class="project-title">Mommy'sMade</h3>
+                        <p class="project-desc"><strong>Goal:</strong> Build a premium homemade bakery identity<br><strong>Approach:</strong> Warm, elegant, minimal design with earthy tones<br><strong>Outcome:</strong> Strong and cohesive brand presence across all touchpoints</p>
+                        <div class="project-tags">
+                            <span class="tag">Logo Design</span><span class="tag">Packaging</span><span class="tag">Photography</span><span class="tag">Brand Identity</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="pmc.html" class="project-card tilt reveal" style="transition-delay: 0.2s">
+                    <div class="project-image-wrap">
+                        <img src="pmc logo.png" alt="Photography Club" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <p class="project-role">Photographer & Graphic Designer</p>
+                        <h3 class="project-title">Photography & Media Club</h3>
+                        <p class="project-desc"><strong>Coverage:</strong> Event photography for college fests and workshops<br><strong>Design:</strong> Promotional posters and social media creatives<br><strong>Consistency:</strong> Maintained visual identity across all platforms</p>
+                        <div class="project-tags">
+                            <span class="tag">Event Photography</span><span class="tag">Social Media</span><span class="tag">Poster Design</span>
+                        </div>
+                    </div>
+                </a>
+
+                <article class="project-card tilt reveal" style="transition-delay: 0.3s">
+                    <div class="project-image-wrap">
+                        <img src="Italian Class Poster.png" alt="Creative Designs" class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <p class="project-role">Graphic Designer</p>
+                        <h3 class="project-title">Posters & Social Media Designs</h3>
+                        <p class="project-desc">A curated collection of creative designs showcasing expertise in typography, layout design, and brand consistency. Each piece crafted to engage audiences and communicate messages effectively.</p>
+                        <div class="project-tags">
+                            <span class="tag">Typography</span><span class="tag">Layout Design</span><span class="tag">Branding</span><span class="tag">Creative Direction</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="photography" class="photography">
+            <div class="section-header reveal">
+                <span class="section-label">Portfolio</span>
+                <h2 class="section-title">Photography</h2>
+            </div>
+            <div class="photo-grid">
+                <div class="photo-item reveal" data-img="/IMG_3577~2.jpg">
+                    <img src="IMG_3577~2.jpg" alt="Product Photography">
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">My Photography Portfolio</h3>
+                        <p class="photo-sub">Clean lighting & composition</p>
+                    </div>
+                </div>
+                <!-- <div class="photo-item reveal" style="transition-delay: 0.1s" data-img="1000102004.jpg.jpeg">
+                    <img src="1000102004.jpg.jpeg" alt="Event Photography">
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Event Photography</h3>
+                        <p class="photo-sub">Capturing authentic moments</p>
+                    </div>
+                </div>
+                <div class="photo-item reveal" style="transition-delay: 0.2s" data-img="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&auto=format&fit=crop">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop" alt="Creative Shots">
+                    <div class="photo-overlay">
+                        <h3 class="photo-title">Creative Shots</h3>
+                        <p class="photo-sub">Experimental & artistic</p>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+
+        <section id="skills" class="skills">
+            <div class="section-header reveal">
+                <span class="section-label">Expertise</span>
+                <h2 class="section-title">Skills & Tools</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card reveal">
+                    <h3>Design</h3>
+                    <ul class="skill-list">
+                        <li>Adobe Photoshop</li><li>Adobe Illustrator</li><li>Figma & Canva</li><li>Typography & Layout</li><li>Brand Guidelines</li>
+                    </ul>
+                </div>
+                <div class="skill-card reveal" style="transition-delay: 0.1s">
+                    <h3>Photography</h3>
+                    <ul class="skill-list">
+                        <li>Product Photography</li><li>Event Coverage</li><li>Color Grading</li><li>Studio & Natural Light</li><li>Photo Retouching</li>
+                    </ul>
+                </div>
+                <div class="skill-card reveal" style="transition-delay: 0.2s">
+                    <h3>Strategy</h3>
+                    <ul class="skill-list">
+                        <li>Brand Identity</li><li>Visual Storytelling</li><li>Social Media Design</li><li>Packaging & Print</li><li>Client Communication</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="section-header reveal">
+                <span class="section-label">Get In Touch</span>
+                <h2 class="section-title">Let's Create Together</h2>
+            </div>
+            <p class="contact-text reveal">I'm always interested in hearing about new projects and opportunities. Whether you have a question or just want to say hi, feel free to reach out.</p>
+            <div class="contact-links reveal">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=shikhar24.singhh@gmail.com" target="_blank" class="magnetic-btn">Email</a>
+                <a href="https://instagram.com/clicks.shikhar" target="_blank" class="magnetic-btn">Instagram</a>
+                <!-- <a href="#" class="magnetic-btn">View Full Portfolio</a> -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Shikhar Singh. All rights reserved. Crafted with precision.</p>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <img src="" alt="Expanded Photo">
+    </div>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+        document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        document.querySelectorAll('a, button, .project-card, .photo-item').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible'));
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Parallax Hero
+        const heroBg = document.getElementById('hero-bg');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if(scrollY < window.innerHeight) {
+                heroBg.style.transform = `translateY(${scrollY * 0.3}px) scale(1.1)`;
+            }
+        }, { passive: true });
+
+        // Navbar Scroll & Active Link
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 150;
+                if(window.scrollY >= top) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href').includes(current));
+            });
+        }, { passive: true });
+
+        // 3D Tilt Effect
+        document.querySelectorAll('.tilt').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 5;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        // Magnetic Buttons
+        document.querySelectorAll('.magnetic-btn, .magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        document.querySelectorAll('.photo-item').forEach(item => {
+            item.addEventListener('click', () => {
+                lightboxImg.src = item.dataset.img;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', e => e.target === lightbox && closeLightbox());
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', e => e.key === 'Escape' && closeLightbox());
+
+        // Mobile Menu
+        const menuBtn = document.querySelector('.menu-btn');
+        const navMenu = document.querySelector('.nav-links');
+        menuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('open');
+            const isOpen = navMenu.classList.contains('open');
+            menuBtn.children[0].style.transform = isOpen ? 'rotate(45deg) translate(5px, 5px)' : '';
+            menuBtn.children[1].style.opacity = isOpen ? '0' : '1';
+            menuBtn.children[2].style.transform = isOpen ? 'rotate(-45deg) translate(5px, -5px)' : '';
+        });
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navMenu.classList.remove('open'));
+        });
+
+        // Smooth Scroll Offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mommy'sMade | Shikhar Singh Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        @layer reset, base, components, utilities;
+
+        :root {
+            --color-black: #0a0a0a;
+            --color-dark-brown: #2C2419;
+            --color-warm-brown: #6B4423;
+            --color-brown: #8B6F4E;
+            --color-beige: #D4C4B0;
+            --color-cream: #E8E0D5;
+            --color-soft-cream: #F5F0E8;
+            --color-white: #FAF7F2;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+            --transition: 0.4s var(--ease-smooth);
+        }
+
+        @layer reset {
+            *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+            html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+            img, video { max-width: 100%; display: block; }
+            a, button { text-decoration: none; color: inherit; cursor: pointer; border: none; background: none; }
+        }
+
+        @layer base {
+            body {
+                font-family: var(--font-sans);
+                background: var(--color-white);
+                color: var(--color-black);
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
+            ::selection { background: var(--color-warm-brown); color: var(--color-white); }
+            ::-webkit-scrollbar { width: 6px; }
+            ::-webkit-scrollbar-track { background: var(--color-soft-cream); }
+            ::-webkit-scrollbar-thumb { background: var(--color-brown); border-radius: 3px; }
+        }
+
+        @layer components {
+            /* Progress Bar */
+            .progress-bar {
+                position: fixed; top: 0; left: 0; height: 3px;
+                background: linear-gradient(90deg, var(--color-warm-brown), var(--color-brown));
+                z-index: 9999; width: 0%; transition: width 0.1s;
+            }
+
+            /* Navigation */
+            .case-nav {
+                position: fixed; top: 0; left: 0; right: 0;
+                padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center;
+                background: rgba(250, 247, 242, 0.9); backdrop-filter: blur(12px);
+                border-bottom: 1px solid rgba(139, 111, 78, 0.1); z-index: 100;
+                transition: padding 0.3s;
+            }
+            .case-nav.scrolled { padding: 1rem 5%; }
+            .back-link { font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; transition: var(--transition); }
+            .back-link:hover { color: var(--color-warm-brown); transform: translateX(-3px); }
+            .project-nav-title { font-family: var(--font-serif); font-size: 1.1rem; letter-spacing: -0.5px; }
+
+            /* Hero */
+            .project-hero {
+                position: relative; min-height: 85vh; display: flex; align-items: center; justify-content: center;
+                padding: 8rem 5% 6rem; background: radial-gradient(circle at 70% 30%, var(--color-soft-cream), var(--color-cream));
+                overflow: hidden;
+            }
+            .hero-bg {
+                position: absolute; inset: 0; z-index: -1;
+                background: url('https://images.unsplash.com/photo-1517433670267-085d46099166?w=1400&auto=format&fit=crop') center/cover;
+                opacity: 0.15; filter: grayscale(60%) contrast(1.1);
+            }
+            .hero-content { text-align: center; max-width: 900px; }
+            .hero-tag {
+                display: inline-block; padding: 0.4rem 1rem; border: 1px solid var(--color-brown);
+                border-radius: 30px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+                color: var(--color-warm-brown); margin-bottom: 1.5rem;
+            }
+            .hero-content h1 {
+                font-family: var(--font-serif); font-size: clamp(3rem, 8vw, 6rem);
+                font-weight: 400; line-height: 1; margin-bottom: 1.5rem; letter-spacing: -2px;
+            }
+            .hero-sub {
+                font-size: clamp(1rem, 1.5vw, 1.25rem); color: var(--color-brown);
+                max-width: 650px; margin: 0 auto; font-weight: 300;
+            }
+
+            /* Meta Section */
+            .project-meta {
+                padding: 4rem 5%; background: var(--color-white);
+                border-top: 1px solid var(--color-cream);
+            }
+            .meta-grid {
+                display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 2rem; max-width: 1100px; margin: 0 auto;
+            }
+            .meta-item { text-align: center; }
+            .meta-item span { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--color-brown); margin-bottom: 0.5rem; }
+            .meta-item p { font-family: var(--font-serif); font-size: 1.2rem; color: var(--color-dark-brown); }
+
+            /* Narrative */
+            .narrative-section { padding: 6rem 5%; background: var(--color-soft-cream); }
+            .narrative-header { text-align: center; margin-bottom: 4rem; }
+            .narrative-header h2 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+            .narrative-grid {
+                display: grid; gap: 3rem; max-width: 1100px; margin: 0 auto;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            .narrative-card {
+                padding: 2.5rem; background: var(--color-white); border-radius: 12px;
+                border: 1px solid var(--color-cream); transition: var(--transition);
+            }
+            .narrative-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(44,36,25,0.1); }
+            .narrative-card h3 { font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 1rem; color: var(--color-warm-brown); }
+            .narrative-card p { color: var(--color-dark-brown); font-size: 1.05rem; line-height: 1.7; }
+
+            /* Visual Showcase */
+            .showcase { padding: 6rem 5%; background: var(--color-white); }
+            .showcase-header { text-align: center; margin-bottom: 4rem; }
+            .showcase-header h2 { font-family: var(--font-serif); font-size: clamp(2rem, 3vw, 2.5rem); }
+            
+            .showcase-grid {
+                display: grid; gap: 2rem; max-width: 1200px; margin: 0 auto;
+                grid-template-columns: repeat(12, 1fr);
+            }
+            .showcase-item {
+                position: relative; overflow: hidden; border-radius: 10px;
+                background: var(--color-soft-cream); cursor: pointer;
+            }
+            .showcase-item.wide { grid-column: span 8; }
+            .showcase-item.narrow { grid-column: span 4; }
+            .showcase-item.full { grid-column: span 12; }
+            .showcase-item img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16/9; transition: transform 0.6s var(--ease-out); }
+            .showcase-item:hover img { transform: scale(1.05); }
+            .item-overlay {
+                position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.5rem;
+                background: linear-gradient(to top, rgba(10,10,10,0.8), transparent);
+                transform: translateY(100%); transition: transform var(--transition);
+            }
+            .showcase-item:hover .item-overlay { transform: translateY(0); }
+            .item-overlay h4 { color: var(--color-white); font-family: var(--font-serif); font-size: 1.4rem; }
+            .item-overlay p { color: var(--color-beige); font-size: 0.9rem; margin-top: 0.3rem; }
+
+            /* Process Quote */
+            .process-quote {
+                padding: 5rem 5%; background: var(--color-dark-brown); color: var(--color-white);
+                text-align: center;
+            }
+            .process-quote blockquote {
+                font-family: var(--font-serif); font-size: clamp(1.5rem, 3vw, 2.2rem);
+                font-style: italic; max-width: 800px; margin: 0 auto 1.5rem; line-height: 1.4;
+            }
+            .process-quote cite { color: var(--color-beige); font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+
+            /* CTA / Next Project */
+            .next-project {
+                padding: 6rem 5%; text-align: center; background: var(--color-white);
+            }
+            .next-project h2 { font-family: var(--font-serif); font-size: clamp(2rem, 3vw, 2.8rem); margin-bottom: 2rem; }
+            .project-nav { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+            .nav-btn {
+                padding: 0.8rem 2rem; border: 1px solid var(--color-brown); border-radius: 30px;
+                font-size: 0.9rem; font-weight: 500; transition: var(--transition);
+            }
+            .nav-btn:hover { background: var(--color-warm-brown); color: var(--color-white); border-color: var(--color-warm-brown); }
+            .back-home { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-brown); font-weight: 500; transition: var(--transition); }
+            .back-home:hover { color: var(--color-warm-brown); transform: translateX(-5px); }
+
+            /* Footer */
+            footer { background: var(--color-black); color: var(--color-beige); text-align: center; padding: 3rem 5%; font-size: 0.85rem; }
+
+            /* Reveal Animation */
+            .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s var(--ease-out); }
+            .reveal.visible { opacity: 1; transform: translateY(0); }
+
+            /* Responsive */
+            @media (max-width: 968px) {
+                .showcase-grid { grid-template-columns: 1fr; }
+                .showcase-item.wide, .showcase-item.narrow, .showcase-item.full { grid-column: span 1; }
+            }
+            @media (max-width: 640px) {
+                .meta-grid { grid-template-columns: 1fr 1fr; }
+                .narrative-grid { grid-template-columns: 1fr; }
+                .project-hero { min-height: 70vh; padding-top: 7rem; }
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="case-nav" id="caseNav">
+        <a href="index.html" class="back-link">← Back to Portfolio</a>
+        <span class="project-nav-title">Mommy'sMade</span>
+    </nav>
+
+    <main>
+        <header class="project-hero">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <span class="hero-tag">Brand Identity & Photography</span>
+                <h1 class="reveal">Mommy'sMade</h1>
+                <p class="hero-sub reveal" style="transition-delay: 0.1s">Crafting a warm, premium identity for a homemade bakery brand</p>
+            </div>
+        </header>
+
+        <section class="project-meta reveal">
+            <div class="meta-grid">
+                <div class="meta-item"><span>Role</span><p>Graphic Designer & Photographer</p></div>
+                <div class="meta-item"><span>Timeline</span><p>40 Weeks</p></div>
+                <div class="meta-item"><span>Tools</span><p>Illustrator, Photoshop, Canva, Lightroom, Affinity Designer</p></div>
+                <div class="meta-item"><span>Deliverables</span><p>Logo, Posters, Social, Photography, Recipe Book</p></div>
+            </div>
+        </section>
+
+        <section class="narrative-section">
+            <div class="narrative-header reveal">
+                <h2>The Challenge</h2>
+                <p style="max-width: 700px; margin: 0 auto; color: var(--color-brown); font-size: 1.1rem;">Transform a passion project into a cohesive, market-ready brand.</p>
+            </div>
+            <div class="narrative-grid">
+                <article class="narrative-card reveal">
+                    <h3>Goal</h3>
+                    <p>Build a premium homemade bakery identity that feels authentic, warm, and elevated. The brand needed to stand out in a crowded market while staying true to its "crafted at home" roots.</p>
+                </article>
+                <article class="narrative-card reveal" style="transition-delay: 0.1s">
+                    <h3>Approach</h3>
+                    <p>Warm, elegant, minimal design with earthy tones, refined typography, and intentional whitespace. Every visual element was crafted to evoke comfort, quality, and premium homemade care.</p>
+                </article>
+                <article class="narrative-card reveal" style="transition-delay: 0.2s">
+                    <h3>Outcome</h3>
+                    <p>Strong and cohesive brand presence across all touchpoints. Increased customer trust, social media engagement, and a visual system that scales seamlessly for future product lines.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="showcase">
+            <div class="showcase-header reveal">
+                <h2>Visual Deliverables</h2>
+            </div>
+            <div class="showcase-grid">
+                <div class="showcase-item wide reveal">
+                    <img src="mommysmade.png" alt="Logo Design">
+                    <div class="item-overlay">
+                        <h4>Logo & Brand Mark</h4>
+                        <p>Clean, timeless typography with a subtle handwritten accent</p>
+                    </div>
+                </div>
+                <div class="showcase-item narrow reveal" style="transition-delay: 0.1s">
+                    <img src="Red Sauce Pasta.png" alt="Packaging">
+                    <div class="item-overlay">
+                        <h4>Posters</h4>
+                        <p>Clean Minimalist Poster Designs</p>
+                    </div>
+                </div>
+                <div class="showcase-item full reveal" style="transition-delay: 0.2s">
+                    <img src="0.png" alt="Social Media">
+                    <div class="item-overlay">
+                        <h4>Social Media Creatives</h4>
+                        <p>Consistent grid layout, seasonal campaigns, and promotional templates</p>
+                    </div>
+                </div>
+                <div class="showcase-item narrow reveal" style="transition-delay: 0.3s">
+                    <img src="Yellow Cream and Red Simple Pancake Recipe Book Cover.png" alt="Recipe Book">
+                    <div class="item-overlay">
+                        <h4>Recipe Book Design</h4>
+                        <p>Editorial layout with elegant typography and step-by-step visual guides</p>
+                    </div>
+                </div>
+                <div class="showcase-item wide reveal" style="transition-delay: 0.4s">
+                    <img src="Still 2026-04-19 185048_1.1.1.png" alt="Product Photography">
+                    <div class="item-overlay">
+                        <h4>Product Photography</h4>
+                        <p>Natural lighting, clean styling, appetite-inducing composition</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="process-quote reveal">
+            <blockquote>"Design is not just what it looks like and feels like. Design is how it works."</blockquote>
+            <cite>— Applied to every Mommy'sMade touchpoint</cite>
+        </section>
+
+        <section class="next-project">
+            <div class="reveal">
+                <h2>Explore More Work</h2>
+                <div class="project-nav">
+                    <a href="pmc.html" class="nav-btn">Photography & Media Club</a>
+                    <a href="posters and social media.html" class="nav-btn">Posters & Social Media</a>
+                </div>
+                <a href="index.html" class="back-home">← Back to Portfolio</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Shikhar Singh. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Reading Progress Bar
+        const progressBar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.width = progress + '%';
+        }, { passive: true });
+
+        // Navbar Scroll Effect
+        const caseNav = document.getElementById('caseNav');
+        window.addEventListener('scroll', () => {
+            caseNav.classList.toggle('scrolled', window.scrollY > 50);
+        }, { passive: true });
+
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible'));
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth Back Navigation
+        document.querySelectorAll('a[href="index.html"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href = 'index.html'; // Replace with actual index path
+            });
+        });
+    </script>
+</body>
+</html>
