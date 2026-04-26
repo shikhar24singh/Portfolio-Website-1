@@ -183,14 +183,55 @@
             .reveal.visible { opacity: 1; transform: translateY(0); }
 
             /* Responsive */
-            @media (max-width: 968px) {
-                .showcase-grid { grid-template-columns: 1fr; }
-                .showcase-item.wide, .showcase-item.narrow, .showcase-item.full { grid-column: span 1; }
+            @media (max-width: 1024px) {
+                .showcase-grid { grid-template-columns: repeat(6, 1fr); }
+                .showcase-item.wide { grid-column: span 6; }
+                .showcase-item.narrow { grid-column: span 3; }
+                .showcase-item.full { grid-column: span 6; }
+            }
+            @media (max-width: 768px) {
+                .case-nav { padding: 1rem 5%; }
+                .back-link { font-size: 0.85rem; }
+                .project-nav-title { font-size: 1rem; }
+                .project-hero { min-height: 70vh; padding: 7rem 5% 4rem; }
+                .hero-content h1 { font-size: clamp(2.5rem, 6vw, 4rem); }
+                .meta-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+                .narrative-grid { grid-template-columns: 1fr; }
+                .narrative-section { padding: 4rem 5%; }
+                .showcase { padding: 4rem 5%; }
+                .showcase-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+                .showcase-item.wide, .showcase-item.narrow, .showcase-item.full { grid-column: span 2; }
+                .item-overlay { padding: 1.5rem 1rem; }
+                .item-overlay h4 { font-size: 1.2rem; }
+                .process-quote { padding: 4rem 5%; }
+                .process-quote blockquote { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
+                .project-nav { gap: 1rem; }
+                .nav-btn { padding: 0.7rem 1.5rem; font-size: 0.85rem; }
             }
             @media (max-width: 640px) {
-                .meta-grid { grid-template-columns: 1fr 1fr; }
-                .narrative-grid { grid-template-columns: 1fr; }
-                .project-hero { min-height: 70vh; padding-top: 7rem; }
+                .meta-grid { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+                .meta-item p { font-size: 1rem; }
+                .meta-item span { font-size: 0.65rem; }
+                .narrative-card { padding: 1.8rem; }
+                .narrative-card h3 { font-size: 1.4rem; }
+                .narrative-card p { font-size: 0.95rem; }
+                .showcase-grid { grid-template-columns: 1fr; }
+                .showcase-item.wide, .showcase-item.narrow, .showcase-item.full { grid-column: span 1; }
+                .showcase-item img { aspect-ratio: 4/3; }
+                .next-project { padding: 4rem 5%; }
+                .next-project h2 { font-size: clamp(1.8rem, 4vw, 2.2rem); }
+                footer { padding: 2rem 5%; font-size: 0.8rem; }
+            }
+            @media (max-width: 480px) {
+                .hero-tag { font-size: 0.65rem; padding: 0.3rem 0.8rem; }
+                .hero-sub { font-size: 0.95rem; }
+                .meta-grid { grid-template-columns: 1fr; gap: 1rem; }
+                .meta-item { padding: 0.5rem 0; }
+                .narrative-header h2 { font-size: clamp(1.6rem, 4vw, 2rem); }
+                .item-overlay h4 { font-size: 1.1rem; }
+                .item-overlay p { font-size: 0.8rem; }
+                .project-nav { flex-direction: column; align-items: center; }
+                .nav-btn { width: 100%; max-width: 200px; text-align: center; }
             }
         }
     </style>
@@ -256,11 +297,13 @@
                     </div>
                 </div>
                 <div class="showcase-item narrow reveal" style="transition-delay: 0.1s">
+                    <a href="https://www.behance.net/gallery/248223237/MommysMade" target="_blank" style="display:block;height:100%;">
                     <img src="Red Sauce Pasta.png" alt="Packaging">
                     <div class="item-overlay">
                         <h4>Posters</h4>
                         <p>Clean Minimalist Poster Designs</p>
                     </div>
+                    </a>
                 </div>
                 <div class="showcase-item full reveal" style="transition-delay: 0.2s">
                     <img src="0.png" alt="Social Media">
